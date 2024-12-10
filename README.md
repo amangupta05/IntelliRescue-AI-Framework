@@ -134,5 +134,4 @@ For inquiries, please reach out to:
 
 ---
 
-## Screenshots
-Include screenshots or GIFs of the dashboard and workflows (if available).
+
