@@ -1,23 +1,23 @@
 {
     "CrashDetectionAgent": {
-      "address": "address_1",
-      "private_key": "private_key_1"
+      "address": "agent1qdjdfquw7ud0kh6fhl3ewle8kr0kmlgf297zyknz5k6jmfnvdl907kcx8zc",
+      "private_key": "73224ebf70ad8e3635b7cbe462a7176e7f89b4eaee1ed439de2a39260b596432"
     },
     "SeverityAnalysisAgent": {
-      "address": "address_2",
-      "private_key": "private_key_2"
+      "address": "agent1qg5ukhkd3zzfeaxhetdmn3w3n27ck38mk7x360h5x0r02u9aj7sfq26adt4",
+      "private_key": "000e270d3a2e9f49aee284f84f74e8391314dc052d39f1f18553f68236ccbde3"
     },
     "HealthAnalysisAgent": {
-      "address": "address_3",
-      "private_key": "private_key_3"
+      "address": "agent1qtzaexsp4wu7gqenhhfvh6v2zrekqtkdx8kh597l7rtlhz4ewcu7q89vk0u",
+      "private_key": "07b084e43eb28b2591eda4e81588d5377e3c69268bb3c441a5e0e04af37564fd"
     },
     "ResponderNotificationAgent": {
-      "address": "address_4",
-      "private_key": "private_key_4"
+      "address": "agent1q23n57638u76c5vstrgdqt7u8uekyym8qj7emc2mveu59azh4le7jp0mrd3",
+      "private_key": "999452024c02a7ef08d165ef605befc31049947b066530613d6234e46c7d88c7"
     },
     "NavigationAgent": {
-      "address": "address_5",
-      "private_key": "private_key_5"
+      "address": "agent1q26hdm66jfnh69gg2mgcpx6aeanqjusvvla97e9t0dv2a7vap9x8cjz9a4m",
+      "private_key": "403a8d732ce118ea95d089b0b3c0ea6f8594dcd3f26233e481dc417430a48332"
     }
   }
   
