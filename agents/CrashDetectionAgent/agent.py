@@ -1,17 +1,60 @@
 import json
-from uagents.resolver import DNSResolver
-from uagents.protocol.default import DefaultMessage
-from uagents.agent import Agent
+from uagents import Agent, Context, Model, Protocol
 from dotenv import load_dotenv
 import os
 
 # Load environment variables
 load_dotenv()
 
-class CrashDetectionAgent(Agent):
+# Define message structures using Models
+class TelemetryData(Model):
+    g_force: float
+    speed: float
+    timestamp: str
+    location: dict
+
+class CrashDetectionResponse(Model):
+    crash_detected: bool
+    g_force: float = 0.0
+    speed: float = 0.0
+    timestamp: str = ""
+    location: dict = {}
+
+# Define the crash detection protocol
+crash_proto = Protocol()
+
+@crash_proto.on_message(model=TelemetryData, replies={CrashDetectionResponse})
+async def handle_telemetry_data(ctx: Context, sender: str, msg: TelemetryData):
+    """
+    Handle incoming telemetry data and determine if a crash has occurred.
+    """
+    try:
+        # Extract telemetry data
+        g_force = msg.g_force
+        speed = msg.speed
+
+        # Simplistic crash detection logic
+        crash_detected = g_force > 3.0 or speed == 0  # Example thresholds
+
+        # Create a response
+        response = CrashDetectionResponse(
+            crash_detected=crash_detected,
+            g_force=g_force,
+            speed=speed,
+            timestamp=msg.timestamp,
+            location=msg.location,
+        )
+
+        # Send the response
+        await ctx.send(sender, response)
+    except Exception as e:
+        ctx.logger.error(f"Error processing telemetry data: {str(e)}")
+
+# Define the CrashDetectionAgent class
+class CrashDetectionAgent:
     def __init__(self, agent_name: str):
         """
-        Initialize the CrashDetectionAgent.
+        Initialize the CrashDetectionAgent with address and private key.
         """
         # Load agent address and private key from centralized config
         agent_config_file = os.getenv("AGENT_CONFIG_FILE", "agent_addresses.json")
@@ -22,60 +65,18 @@ class CrashDetectionAgent(Agent):
             raise ValueError(f"Agent name '{agent_name}' not found in {agent_config_file}.")
 
         agent_info = addresses[agent_name]
-        super().__init__(agent_info["address"], agent_info["private_key"])
+        self.agent = Agent(name=agent_name, address=agent_info["address"], private_key=agent_info["private_key"])
         self.agent_name = agent_name
-        print(f"{agent_name} initialized with address: {agent_info['address']}")
 
-    def detect_crash(self, telemetry_data):
+        # Include the crash detection protocol
+        self.agent.include(crash_proto)
+
+    def run(self):
         """
-        Analyze telemetry data to detect crashes.
-
-        Args:
-            telemetry_data (dict): Dictionary containing telemetry data such as g-force, speed, etc.
-
-        Returns:
-            dict: Crash details if a crash is detected, else a message indicating no crash.
+        Run the agent.
         """
-        try:
-            g_force = telemetry_data.get("g_force", 0)
-            speed = telemetry_data.get("speed", 0)
-
-            # Crash detection logic
-            if g_force > 3.0 or speed == 0:  # Example thresholds for crash detection
-                return {
-                    "crash_detected": True,
-                    "g_force": g_force,
-                    "speed": speed,
-                    "timestamp": telemetry_data.get("timestamp"),
-                    "location": telemetry_data.get("location"),
-                }
-            return {"crash_detected": False}
-        except Exception as e:
-            return {"error": f"Crash detection failed: {str(e)}"}
-
-    async def handle_message(self, envelope):
-        """
-        Handles incoming messages with telemetry data.
-
-        Args:
-            envelope: Incoming message envelope.
-        """
-        message = DefaultMessage.decode(envelope.message)
-        if message.performative == DefaultMessage.Performative.REQUEST:
-            try:
-                telemetry_data = json.loads(message.content)
-                crash_details = self.detect_crash(telemetry_data)
-                response = DefaultMessage(
-                    performative=DefaultMessage.Performative.INFORM,
-                    content=json.dumps(crash_details),
-                )
-                await self.send(envelope.sender, response)
-            except Exception as e:
-                error_response = DefaultMessage(
-                    performative=DefaultMessage.Performative.ERROR,
-                    content=json.dumps({"error": str(e)}),
-                )
-                await self.send(envelope.sender, error_response)
+        print(f"{self.agent_name} is running with address: {self.agent.address}")
+        self.agent.run()
 
 # Instantiate and run the CrashDetectionAgent
 if __name__ == "__main__":
