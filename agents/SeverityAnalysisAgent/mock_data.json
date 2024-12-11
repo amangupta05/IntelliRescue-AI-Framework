@@ -1,3 +1,9 @@
 {
-  "mock": "dashboard data"
+  "g_force": 8.5,
+  "location": "37.7749,-122.4194",
+  "timestamp": "2024-12-10T12:34:56Z",
+  "weather": {
+    "temperature": 15,
+    "condition": "rain"
+  }
 }

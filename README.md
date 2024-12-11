@@ -1,26 +1,29 @@
+Here’s the updated `README.md` file for your project, including all the necessary details for setting up, configuring, and running the IntelliRescue AI framework:
 
+---
 
 # IntelliRescue AI Framework
 
-IntelliRescue is an AI-powered emergency response system designed to assist in vehicle crash scenarios. It leverages **Fetch.ai agents** for decentralized decision-making, **LangChain** for dynamic workflows and NLP capabilities, and a real-time **dashboard** for emergency responders. This project is built for the Fetch.ai Hackathon and demonstrates a seamless integration of AI technologies to solve real-world challenges.
+The IntelliRescue AI Framework is an AI-driven emergency response system designed for vehicle crash scenarios. It leverages Fetch.ai agents for decentralized task handling, LangChain for orchestration and NLP capabilities, and a React-based dashboard for real-time visualization. This project was built as part of the Fetch.ai Hackathon to demonstrate how intelligent agents can improve emergency response times while preserving privacy.
 
 ---
 
-## **Features**
-- **Crash Detection**: Monitors vehicle telemetry and identifies crash events using Fetch.ai agents.
-- **Severity Analysis**: Evaluates crash severity based on impact data and environmental conditions.
-- **Health Analysis**: Analyzes occupant vitals to assess medical urgency.
-- **Responder Notification**: Sends secure, real-time alerts to emergency responders.
-- **Route Optimization**: Provides responders with the best route to the crash site.
-- **NLP Integration**: Uses LangChain for natural language guidance to occupants and workflow orchestration.
-- **Real-Time Dashboard**: Visualizes crash details, responder updates, and incident logs.
+## Features
+
+1. **Crash Detection**: Identifies crashes using telemetry data (g-force, speed).
+2. **Severity Analysis**: Evaluates crash severity based on road and weather conditions.
+3. **Health Analysis**: Analyzes occupant health data.
+4. **Responder Notification**: Sends crash details to emergency responders.
+5. **Navigation**: Optimizes routes for emergency responders.
+6. **Privacy-Preserving Multi-Agent System**: Utilizes Fetch.ai's multi-agent framework.
+7. **Real-Time Dashboard**: Allows responders to monitor incidents and make decisions.
 
 ---
 
-## **Project Structure**
+## Project Structure
 
 ```plaintext
-IntelliRescue_AI_Framework/
+IntelliRescue AI Framework/
 ├── agents/                          # Fetch.ai Agents
 │   ├── CrashDetectionAgent/         # Detects crashes
 │   ├── SeverityAnalysisAgent/       # Evaluates crash severity
@@ -32,112 +35,211 @@ IntelliRescue_AI_Framework/
 │   └── langchain_integration.py     # LangChain workflows
 ├── dashboard/                       # Real-Time Dashboard
 │   └── src/
-├── run_demo.py                      # Script to automate workflows
+├── agent_addresses.json             # Centralized agent addresses and private keys
+├── run_demo.py                      # Script to simulate workflows
 ├── tests/                           # Test suite for all components
 ├── documentation/                   # Documentation for the project
 ├── README.md                        # Project overview and setup guide
 ├── requirements.txt                 # Python dependencies
-└── .env                             # Environment variables
+└── .env                             # Environment variables (API keys, etc.)
 ```
 
 ---
 
-## **Installation**
+## Requirements
 
-### **Prerequisites**
-1. Python 3.9 or higher
-2. Node.js and npm
-3. Virtual Environment (optional)
+### 1. System Requirements
+- Python 3.8 or higher
+- Node.js (for the React dashboard)
+- A Fetch.ai agent address and private key for each agent
 
-### **Clone the Repository**
+### 2. API Keys Required
+- **Google Maps API Key**: For navigation functionality.
+- **Weather API Key**: For severity analysis (e.g., OpenWeatherMap).
+
+---
+
+## Installation Guide
+
+### Step 1: Clone the Repository
 ```bash
-git clone https://github.com/amangupta05/IntelliRescue-AI-Framework.git
-cd IntelliRescue-AI-Framework
+git clone https://github.com/your-repo/intellirescue-ai.git
+cd intellirescue-ai
 ```
 
----
-
-## **Setup**
-
-### **Backend**
-1. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-2. Set up environment variables:
-   - Create a `.env` file in the root directory:
-     ```plaintext
-     OPENAI_API_KEY=your_openai_api_key
-     MAPS_API_KEY=your_maps_api_key
-     ```
-3. Start the backend server:
-   ```bash
-   python backend/app.py
-   ```
-
-### **Agents**
-Start each agent in a separate terminal window:
+### Step 2: Create and Activate a Virtual Environment
+For Linux/macOS:
 ```bash
-python agents/CrashDetectionAgent/agent.py
-python agents/SeverityAnalysisAgent/agent.py
-python agents/HealthAnalysisAgent/agent.py
-python agents/ResponderNotificationAgent/agent.py
-python agents/NavigationAgent/agent.py
+python3 -m venv venv
+source venv/bin/activate
 ```
 
-### **Dashboard**
-1. Navigate to the dashboard directory:
-   ```bash
-   cd dashboard
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Start the dashboard:
-   ```bash
-   npm start
-   ```
+For Windows:
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+### Step 3: Install Dependencies
+Install Python dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+Install Node.js dependencies for the dashboard:
+```bash
+cd dashboard/src
+npm install
+cd ../../
+```
+
+### Step 4: Generate Agent Addresses
+You’ll need to generate Fetch.ai agent addresses and private keys for each agent. You can use the Fetch.ai wallet or tools like `fetchcli` to generate keys.
+
+Example:
+```bash
+fetchcli keys add <agent_name>
+```
+
+Store the generated `address` and `private_key` in the `agent_addresses.json` file:
+```json
+{
+    "CrashDetectionAgent": {
+        "address": "address_1",
+        "private_key": "private_key_1"
+    },
+    "SeverityAnalysisAgent": {
+        "address": "address_2",
+        "private_key": "private_key_2"
+    },
+    "HealthAnalysisAgent": {
+        "address": "address_3",
+        "private_key": "private_key_3"
+    },
+    "ResponderNotificationAgent": {
+        "address": "address_4",
+        "private_key": "private_key_4"
+    },
+    "NavigationAgent": {
+        "address": "address_5",
+        "private_key": "private_key_5"
+    }
+}
+```
+
+### Step 5: Configure the `.env` File
+Create a `.env` file in the root directory with the following content:
+```plaintext
+# General Configuration
+AGENT_CONFIG_FILE=agent_addresses.json
+
+# API Keys
+MAPS_API_KEY=your_google_maps_api_key
+WEATHER_API_KEY=your_weather_api_key
+
+# Dashboard Configuration
+DASHBOARD_HOST=127.0.0.1
+DASHBOARD_PORT=8000
+
+# Miscellaneous Settings
+LOG_LEVEL=INFO
+ENV=development
+```
 
 ---
 
-## **Demo**
-1. Run the centralized demo script:
-   ```bash
-   python run_demo.py
-   ```
-2. View real-time updates on the dashboard at:
-   ```plaintext
-   http://localhost:3000
-   ```
+## Running the System
+
+### 1. Start the Agents
+Navigate to each agent directory and run the corresponding script. For example:
+```bash
+cd agents/CrashDetectionAgent
+python agent.py
+```
+Repeat this for all agents (`CrashDetectionAgent`, `SeverityAnalysisAgent`, etc.).
+
+### 2. Start the Backend
+Run the backend application:
+```bash
+cd backend
+python app.py
+```
+
+### 3. Start the Dashboard
+Navigate to the dashboard directory and start the React server:
+```bash
+cd dashboard/src
+npm start
+```
+
+### 4. Simulate Workflows
+You can simulate a full workflow using the `run_demo.py` script:
+```bash
+python run_demo.py
+```
 
 ---
 
-## **Technologies Used**
-- **Fetch.ai**: Decentralized agents for crash detection, analysis, and responder notification.
-- **LangChain**: Workflow orchestration and NLP for guidance and summarization.
-- **React**: Frontend dashboard for visualizing crash details and responder updates.
-- **SQLite**: Database for logging crash incidents and analytics.
+## Testing
+
+To run the test suite for all components:
+```bash
+pytest
+```
 
 ---
 
-## **Hackathon Highlights**
-- Fully automated workflow with preloaded mock data.
-- Real-time dashboard for responder visualization.
-- Privacy-preserving data handling with Fetch.ai enclaves.
-- Scalable and modular architecture for future enhancements.
+## Usage
+
+### Sending Telemetry Data to CrashDetectionAgent
+Send a telemetry JSON object to the `CrashDetectionAgent`. Example:
+```json
+{
+    "g_force": 5.2,
+    "speed": 0,
+    "timestamp": "2024-12-10T12:00:00Z",
+    "location": {"latitude": 40.7128, "longitude": -74.0060}
+}
+```
+
+Expected Response:
+```json
+{
+    "crash_detected": true,
+    "g_force": 5.2,
+    "speed": 0,
+    "timestamp": "2024-12-10T12:00:00Z",
+    "location": {"latitude": 40.7128, "longitude": -74.0060}
+}
+```
 
 ---
 
-## **Future Improvements**
-- Integrate live IoT sensor data.
-- Add real-time responder tracking on the map.
-- Enhance NLP models for more personalized guidance.
+## Notes
+
+1. **Security**:
+   - Add `agent_addresses.json` to `.gitignore` to avoid committing sensitive keys.
+   - Use environment variables or a secure secrets manager in production.
+
+2. **Extensibility**:
+   - New agents can be added by defining them in `agents/` and updating `agent_addresses.json`.
+
+3. **Troubleshooting**:
+   - Ensure all dependencies are installed and environment variables are correctly set.
+   - Use `LOG_LEVEL=DEBUG` for detailed logging.
 
 ---
 
 ## **Contributors**
 - [Aman Gupta](https://github.com/amangupta05)
+
+---
+
+## License
+
+This project is licensed under the MIT License.
+
+
 
 
 ---

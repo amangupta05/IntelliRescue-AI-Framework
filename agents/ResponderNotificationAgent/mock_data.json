@@ -1,3 +1,15 @@
 {
-  "mock": "dashboard data"
+  "severity": "high",
+  "health_status": [
+    {
+      "occupant_id": 1,
+      "status": "critical"
+    },
+    {
+      "occupant_id": 2,
+      "status": "stable"
+    }
+  ],
+  "location": "37.7749,-122.4194",
+  "timestamp": "2024-12-10T12:34:56Z"
 }

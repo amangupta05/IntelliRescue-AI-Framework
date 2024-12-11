@@ -1,0 +1,23 @@
+{
+    "CrashDetectionAgent": {
+      "address": "address_1",
+      "private_key": "private_key_1"
+    },
+    "SeverityAnalysisAgent": {
+      "address": "address_2",
+      "private_key": "private_key_2"
+    },
+    "HealthAnalysisAgent": {
+      "address": "address_3",
+      "private_key": "private_key_3"
+    },
+    "ResponderNotificationAgent": {
+      "address": "address_4",
+      "private_key": "private_key_4"
+    },
+    "NavigationAgent": {
+      "address": "address_5",
+      "private_key": "private_key_5"
+    }
+  }
+  

@@ -1,3 +1,8 @@
 {
-  "mock": "dashboard data"
+  "sensor_data": {
+    "g_force": 8.5,
+    "vehicle_speed": 60,
+    "timestamp": "2024-12-10T12:34:56Z",
+    "location": "37.7749,-122.4194"
+  }
 }

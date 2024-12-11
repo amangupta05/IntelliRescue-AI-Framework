@@ -1,3 +1,5 @@
 {
-  "mock": "dashboard data"
+  "location": "37.7749,-122.4194",
+  "responder_location": "37.7849,-122.4094",
+  "traffic_conditions": "moderate"
 }

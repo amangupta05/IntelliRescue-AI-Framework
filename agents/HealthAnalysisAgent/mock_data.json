@@ -1,3 +1,16 @@
 {
-  "mock": "dashboard data"
+  "occupants": [
+    {
+      "id": 1,
+      "heart_rate": 130,
+      "oxygen_level": 85,
+      "condition": "critical"
+    },
+    {
+      "id": 2,
+      "heart_rate": 75,
+      "oxygen_level": 98,
+      "condition": "stable"
+    }
+  ]
 }

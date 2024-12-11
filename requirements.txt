@@ -1,27 +1,15 @@
-# Fetch.ai agent framework
-fetchai-uagents==0.2.0
-
-# LangChain for NLP workflows
-langchain==0.0.170
-openai==0.28.0  # For GPT-4 integration in LangChain
-
-# Flask for backend server
-flask==2.3.3
-flask-cors==3.0.10
-
-# Requests for API calls
-requests==2.31.0
-
-# SQLite and ORM support
-sqlalchemy==2.0.21
-
-# WebSocket support for real-time communication
-websocket-client==1.6.2
-
-# Testing and linting tools
-pytest==7.4.0
-pytest-mock==3.11.1
-flake8==6.1.0
+python-dotenv
+uagents
+langchain
+openai  
+flask
+flask-cors
+requests
+sqlalchemy
+websocket-client
+pytest
+pytest-mock
+flake8
 
 # React Dashboard build tools (for completeness)
 # Note: Run `npm install` in the dashboard directory for these dependencies.

@@ -1,3 +1,25 @@
 {
-  "mock": "dashboard data"
+  "incidents": [
+    {
+      "id": "INC12345",
+      "timestamp": "2024-12-10T12:34:56Z",
+      "location": "37.7749,-122.4194",
+      "severity": "high",
+      "occupants": [
+        {
+          "id": 1,
+          "status": "critical"
+        },
+        {
+          "id": 2,
+          "status": "stable"
+        }
+      ],
+      "responder_route": [
+        "37.7849,-122.4094",
+        "37.7800,-122.4150",
+        "37.7749,-122.4194"
+      ]
+    }
+  ]
 }
