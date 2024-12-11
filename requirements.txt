@@ -11,6 +11,6 @@ websocket-client
 pytest
 pytest-mock
 flake8
-
+logging
 # React Dashboard build tools (for completeness)
 # Note: Run `npm install` in the dashboard directory for these dependencies.
